@@ -1,5 +1,6 @@
 package com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.car.CarModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class EmpresaModel {
     private Integer vagasCarro;
 
     @OneToMany(mappedBy = "empresa")
+    @JsonIgnore
     private List<CarModel> carros;
 
 }

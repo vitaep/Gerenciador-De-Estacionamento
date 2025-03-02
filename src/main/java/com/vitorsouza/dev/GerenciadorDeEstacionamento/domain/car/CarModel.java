@@ -1,5 +1,6 @@
 package com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.car;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa.EmpresaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class CarModel {
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonIgnore
     EmpresaModel empresa;
 
 
