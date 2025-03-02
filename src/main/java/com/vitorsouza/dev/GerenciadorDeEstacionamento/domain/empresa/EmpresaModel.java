@@ -33,10 +33,10 @@ public class EmpresaModel {
     private String telefone;
 
     @Column(name = "vagas_moto")
-    private int vagasMoto;
+    private Integer vagasMoto;
 
     @Column(name = "vagas_carro")
-    private int vagasCarro;
+    private Integer vagasCarro;
 
     @OneToMany(mappedBy = "empresa")
     private List<CarModel> carros;
