@@ -1,6 +1,6 @@
-package com.vitorsouza.dev.GerenciadorDeEstacionamento.model;
+package com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.car;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa.EmpresaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +31,7 @@ public class CarModel {
     String placa;
 
     @Column(name = "tipo")
+    @Enumerated(EnumType.STRING)
     TipoDeVeiculo tipo;
 
     @ManyToOne

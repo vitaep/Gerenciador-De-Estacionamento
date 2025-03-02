@@ -1,6 +1,6 @@
-package com.vitorsouza.dev.GerenciadorDeEstacionamento.model;
+package com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.car.CarModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
