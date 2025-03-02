@@ -2,7 +2,9 @@ package com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.mappers;
 
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.CarDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.car.CarModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CarMapper {
 
     public CarModel map(CarDTO carDTO){

@@ -21,6 +21,11 @@ public class EmpresaServices {
     @Autowired // INJEÇÃO DE DEPENDÊNCIAS
     EmpresaMapper empresaMapper;
 
+    public EmpresaServices(EmpresaRepository empresaRepository, EmpresaMapper empresaMapper) {
+        this.empresaRepository = empresaRepository;
+        this.empresaMapper = empresaMapper;
+    }
+
     public EmpresaDTO addEmpresa(EmpresaDTO empresaDTO){ // ADICIONAR EMPRESA NO DATABASE (CREATE)
         EmpresaModel empresaModel = empresaMapper.map(empresaDTO);
         empresaModel = empresaRepository.save(empresaModel);

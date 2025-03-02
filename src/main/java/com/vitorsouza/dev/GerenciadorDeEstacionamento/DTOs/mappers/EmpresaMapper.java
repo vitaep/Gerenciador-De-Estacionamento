@@ -2,7 +2,9 @@ package com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.mappers;
 
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa.EmpresaModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmpresaMapper {
 
     public EmpresaModel map(EmpresaDTO empresaDTO){
