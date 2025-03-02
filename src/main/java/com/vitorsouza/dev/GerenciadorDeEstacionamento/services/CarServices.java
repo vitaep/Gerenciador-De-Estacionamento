@@ -26,7 +26,6 @@ public class CarServices {
         CarModel carModel = carMapper.map(carDTO);
         carModel = carRepository.save(carModel);
         return carMapper.map(carModel);
-
     }
 
     public List<CarDTO> getCars(){     // LISTAR EMPRESAS (READ)
@@ -43,23 +42,36 @@ public class CarServices {
         CarModel oldCar = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("O carro com o ID: " + id + " não foi encontrado."));
 
-        if(!carDTO.getMarca().isEmpty()) oldCar.setMarca(carDTO.getMarca());
-        if(!carDTO.getModelo().isEmpty()) oldCar.setModelo(carDTO.getModelo());
-        if(!carDTO.getCor().isEmpty()) oldCar.setCor(carDTO.getCor());
-        if(!carDTO.getPlaca().isEmpty()) oldCar.setPlaca(carDTO.getPlaca());
-        if(carDTO.getTipo() != null ) oldCar.setTipo(carDTO.getTipo());
-        if(carDTO.getEmpresa() != null) oldCar.setEmpresa(carDTO.getEmpresa());
+        if (carDTO.getMarca() != null && !carDTO.getMarca().isEmpty()) {
+            oldCar.setMarca(carDTO.getMarca());
+        }
+        if (carDTO.getModelo() != null && !carDTO.getModelo().isEmpty()) {
+            oldCar.setModelo(carDTO.getModelo());
+        }
+        if (carDTO.getCor() != null && !carDTO.getCor().isEmpty()) {
+            oldCar.setCor(carDTO.getCor());
+        }
+        if (carDTO.getPlaca() != null && !carDTO.getPlaca().isEmpty()) {
+            oldCar.setPlaca(carDTO.getPlaca());
+        }
+        if (carDTO.getTipo() != null) {
+            oldCar.setTipo(carDTO.getTipo());
+        }
+        if (carDTO.getEmpresa() != null) {
+            oldCar.setEmpresa(carDTO.getEmpresa());
+        }
 
         carRepository.save(oldCar);
         return carMapper.map(oldCar);
     }
 
-    public CarDTO deleteCar(Long id){
-        CarModel carModel = carRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("O carro com o ID: " + id + " não foi encontrado."));
+    public void deleteCar(Long id){
 
-        carRepository.delete(carModel);
-        return carMapper.map(carModel);
+        if(!carRepository.existsById(id)) {
+            throw new EntityNotFoundException("O carro com o ID: " + id + " não foi encontrado.");
+        } else {
+            carRepository.deleteById(id);
+        }
 
     }
 
