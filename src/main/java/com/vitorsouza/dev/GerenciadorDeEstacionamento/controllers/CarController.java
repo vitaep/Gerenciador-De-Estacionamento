@@ -4,6 +4,7 @@ import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.CarDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.services.CarServices;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class CarController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> addCar(@RequestBody CarDTO carDTO){
+    public ResponseEntity<String> addCar(@Valid @RequestBody CarDTO carDTO){
         CarDTO car = carServices.addCar(carDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("O carro: " + car.getModelo() + " foi adicionado com sucesso no ID: " + car.getId()) ;
@@ -50,7 +51,7 @@ public class CarController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateCar(@PathVariable Long id, @RequestBody CarDTO carDTO){
+    public ResponseEntity<?> updateCar(@PathVariable Long id, @Valid @RequestBody CarDTO carDTO){
         try{
             CarDTO carUpdated = carServices.updateCar(id, carDTO);
             return ResponseEntity.ok().body(carUpdated);

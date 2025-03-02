@@ -4,6 +4,7 @@ import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.services.EmpresaServices;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class EmpresaController {
     }
 
     @PostMapping("/post") // ADD EMPRESAS
-    public ResponseEntity<String> addEmpresa(@RequestBody EmpresaDTO empresaDTO){
+    public ResponseEntity<String> addEmpresa(@Valid @RequestBody EmpresaDTO empresaDTO){
         EmpresaDTO empresa = empresaServices.addEmpresa(empresaDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("A empresa com o nome: " + empresa.getNome() + " foi criada com sucesso no ID: " + empresa.getId() );
@@ -52,7 +53,7 @@ public class EmpresaController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEmpresa(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO){
+    public ResponseEntity<?> updateEmpresa(@PathVariable Long id, @Valid @RequestBody EmpresaDTO empresaDTO){
        try {
            EmpresaDTO empresaUpdated = empresaServices.updateEmpresa(id, empresaDTO);
            return ResponseEntity.ok().body(empresaUpdated);
