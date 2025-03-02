@@ -34,7 +34,7 @@ public class EmpresaMapper {
         empresaDTO.setEndereco(empresaModel.getEndereco());
         empresaDTO.setTelefone(empresaModel.getTelefone());
         empresaDTO.setVagasMoto(empresaModel.getVagasMoto());
-        empresaDTO.setVagasMoto(empresaModel.getVagasCarro());
+        empresaDTO.setVagasCarro(empresaModel.getVagasCarro());
         empresaDTO.setCarros(empresaModel.getCarros());
 
 

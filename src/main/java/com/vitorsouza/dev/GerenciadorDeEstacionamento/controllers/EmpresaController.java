@@ -2,6 +2,9 @@ package com.vitorsouza.dev.GerenciadorDeEstacionamento.controllers;
 
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.services.EmpresaServices;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,30 +51,26 @@ public class EmpresaController {
 
     }
 
-    @PutMapping("/get/{id}")
-    public ResponseEntity<?> updateEmpresa(@PathVariable Long id, EmpresaDTO empresaDTO){
-        EmpresaDTO empresa = empresaServices.updateEmpresa(id, empresaDTO);
-
-        if(empresa != null){
-            return ResponseEntity.ok(empresa);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("A empresa com ID: " + id + " não foi encontrada");
-        }
-
-
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateEmpresa(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO){
+       try {
+           EmpresaDTO empresaUpdated = empresaServices.updateEmpresa(id, empresaDTO);
+           return ResponseEntity.ok().body(empresaUpdated);
+       } catch (EntityNotFoundException e){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                   .body(e.getMessage());
+       }
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteEmpresa(@PathVariable Long id){
-
-
-        if(empresaServices.findEmpresaById(id) != null){
+        try {
             empresaServices.deleteEmpresa(id);
-            return ResponseEntity.ok("A empresa com o ID: " + id + " foi excluida com sucesso.");
-        } else
+            return ResponseEntity.ok("A empresa com o ID: " + id + " foi excluída com sucesso.");
+        } catch (EntityNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("A empresa com o ID: " + id + " não foi encontrada.");
+                    .body(e.getMessage());
+        }
     }
 
 }

@@ -46,25 +46,38 @@ public class EmpresaServices {
         EmpresaModel oldEmpresa = empresaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("A empresa com o ID: " + id + " não foi encontrada."));
 
-        if(!empresaDTO.getNome().isEmpty()) oldEmpresa.setNome(empresaDTO.getNome());
-        if(!empresaDTO.getCnpj().isEmpty()) oldEmpresa.setCnpj(empresaDTO.getCnpj());
-        if(!empresaDTO.getEndereco().isEmpty()) oldEmpresa.setEndereco(empresaDTO.getEndereco());
-        if(!empresaDTO.getTelefone().isEmpty()) oldEmpresa.setTelefone(empresaDTO.getTelefone());
-        if(empresaDTO.getVagasMoto() != null ) oldEmpresa.setVagasMoto(empresaDTO.getVagasMoto());
-        if(empresaDTO.getVagasCarro() != null) oldEmpresa.setVagasCarro(empresaDTO.getVagasCarro());
-        if(!empresaDTO.getCarros().isEmpty()) oldEmpresa.setCarros(empresaDTO.getCarros());
+        if (empresaDTO.getNome() != null && !empresaDTO.getNome().isEmpty()) {
+            oldEmpresa.setNome(empresaDTO.getNome());
+        }
+        if (empresaDTO.getCnpj() != null && !empresaDTO.getCnpj().isEmpty()) {
+            oldEmpresa.setCnpj(empresaDTO.getCnpj());
+        }
+        if (empresaDTO.getEndereco() != null && !empresaDTO.getEndereco().isEmpty()) {
+            oldEmpresa.setEndereco(empresaDTO.getEndereco());
+        }
+        if (empresaDTO.getTelefone() != null && !empresaDTO.getTelefone().isEmpty()) {
+            oldEmpresa.setTelefone(empresaDTO.getTelefone());
+        }
+        if (empresaDTO.getVagasMoto() != null) {
+            oldEmpresa.setVagasMoto(empresaDTO.getVagasMoto());
+        }
+        if (empresaDTO.getVagasCarro() != null) {
+            oldEmpresa.setVagasCarro(empresaDTO.getVagasCarro());
+        }
+        if (empresaDTO.getCarros() != null && !empresaDTO.getCarros().isEmpty()) {
+            oldEmpresa.setCarros(empresaDTO.getCarros());
+        }
 
         empresaRepository.save(oldEmpresa);
         return empresaMapper.map(oldEmpresa);
     }
 
-    public EmpresaDTO deleteEmpresa(Long id){
-        EmpresaModel empresaModel = empresaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("A empresa com o ID: " + id + " não foi encontrada."));
+    public void deleteEmpresa(Long id){
 
-        empresaRepository.delete(empresaModel);
-        return empresaMapper.map(empresaModel);
-
+        if (!empresaRepository.existsById(id)){
+            throw new EntityNotFoundException("A empresa com o ID: " + id + " não foi encontrada.");
+        }
+        empresaRepository.deleteById(id);
     }
 
 
