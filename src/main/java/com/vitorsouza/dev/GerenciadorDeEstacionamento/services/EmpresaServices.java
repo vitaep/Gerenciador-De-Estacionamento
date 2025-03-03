@@ -4,9 +4,13 @@ import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.CarDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.mappers.EmpresaMapper;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.domain.empresa.EmpresaModel;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaDuplicityValuesException;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.repositories.EmpresaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,5 +84,12 @@ public class EmpresaServices {
         empresaRepository.deleteById(id);
     }
 
+    public boolean existsByNome(EmpresaDTO empresaDTO){
+        return empresaRepository.existsByNome(empresaDTO.getNome());
+    }
+
+    public boolean existsByCnpj(EmpresaDTO empresaDTO){
+        return empresaRepository.existsByCnpj(empresaDTO.getCnpj());
+    }
 
 }
