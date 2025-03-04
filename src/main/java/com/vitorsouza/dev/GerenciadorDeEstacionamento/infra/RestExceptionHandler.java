@@ -1,10 +1,11 @@
 package com.vitorsouza.dev.GerenciadorDeEstacionamento.infra;
 
-import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaAllNotParamsException;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.car.CarDuplicityValueException;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.car.CarNotFoundException;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.AllNotParamsException;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaDuplicityValuesException;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaHaveCarsAssigned;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaNotFoundException;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,11 +36,25 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(threatResponse);
     }
 
-    @ExceptionHandler(EmpresaAllNotParamsException.class)
-    private ResponseEntity<RestErrorMessage> allNotParamsException(EmpresaAllNotParamsException exception){
+    @ExceptionHandler(AllNotParamsException.class)
+    private ResponseEntity<RestErrorMessage> allNotParamsException(AllNotParamsException exception){
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.UNAUTHORIZED, exception.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(threatResponse);
         }
+
+    @ExceptionHandler(CarNotFoundException.class)
+    private ResponseEntity<RestErrorMessage> carNotFoundException(CarNotFoundException exception){
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(threatResponse);
+    }
+
+    @ExceptionHandler(CarDuplicityValueException.class)
+    private ResponseEntity<RestErrorMessage> carDuplicityValueException(CarDuplicityValueException exception){
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(threatResponse);
+    }
 
 }

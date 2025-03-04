@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CarRepository extends JpaRepository<CarModel, Long> {
 
-    //Optional<CarModel> findCarByPlaca(String placa);
+    boolean existsByPlaca(String placa);
 
 }

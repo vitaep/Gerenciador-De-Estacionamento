@@ -75,4 +75,8 @@ public class CarServices {
 
     }
 
+    public boolean existsByPlaca(String placa){
+        return carRepository.existsByPlaca(placa);
+    }
+
 }

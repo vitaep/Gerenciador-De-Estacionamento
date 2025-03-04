@@ -1,19 +1,16 @@
 package com.vitorsouza.dev.GerenciadorDeEstacionamento.controllers;
 
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.DTOs.EmpresaDTO;
-import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaAllNotParamsException;
+import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.AllNotParamsException;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaDuplicityValuesException;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaHaveCarsAssigned;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.exceptions.empresa.EmpresaNotFoundException;
-import com.vitorsouza.dev.GerenciadorDeEstacionamento.repositories.EmpresaRepository;
 import com.vitorsouza.dev.GerenciadorDeEstacionamento.services.EmpresaServices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -45,7 +42,7 @@ public class EmpresaController {
             bindingResult.getFieldErrors().forEach(error -> {
                 erros.put(error.getField(), error.getDefaultMessage());
             });
-            throw new EmpresaAllNotParamsException(HttpStatus.BAD_REQUEST, erros);
+            throw new AllNotParamsException(HttpStatus.BAD_REQUEST, erros);
         }
 
         EmpresaDTO empresa = empresaServices.addEmpresa(empresaDTO);
